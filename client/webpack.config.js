@@ -18,26 +18,27 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
+      new HtmlWebpackPlugin({
+        template: "./index.html",
+        title: "JATE",
+      }),
       new WebpackPwaManifest({
-        name: 'Just Another Text Editor',
-        short_name: 'JATE',
-        description: 'pwa text-editor',
-        background_color: "#ffffff",
-        theme_color: "#ffffff",
+        name: "JATE",
+        short_name: "JATE",
+        description: "A simple text editor",
+        background_color: "#7eb4e2",
+        theme_color: "#7eb4e2",
         start_url: "/",
         publicPath: "/",
         fingerprints: false,
         inject: true,
         icons: [
           {
-            src: path.resolve('src/images/logo.png'),
-            sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
-            destination: path.join('assets', 'icons')
+            src: path.resolve("src/images/logo.png"),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join("assets", "icons"),
           },
         ],
-      }),
-      new HtmlWebpackPlugin({
-        template: './index.html',
       }),
       new InjectManifest({
         swSrc: './src-sw.js',
@@ -51,8 +52,12 @@ module.exports = () => {
           use: ['style-loader', 'css-loader'],
         },
         {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: "asset/resource",
+        },
+        {
           test: /\.m?js$/,
-          exclude: /node_modules/,
+          exclude: /(node_modules|bower_components)/,
           use: {
             loader: "babel-loader",
             options: {
