@@ -35,6 +35,13 @@ module.exports = () => {
             destination: path.join('assets', 'icons')
           },
         ],
+      }),
+      new HtmlWebpackPlugin({
+        template: './index.html',
+      }),
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: 'service-worker.js',
       })
     ],
     module: {
