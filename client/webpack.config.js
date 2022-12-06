@@ -19,11 +19,11 @@ module.exports = () => {
     },
     plugins: [
       new WebpackPwaManifest({
-        name: 'simple-text-edtor',
-        short_name: 'MyPWA',
-        description: 'pwa text editor',
-        background_color: "#225ca3",
-        theme_color: "#225ca3",
+        name: 'Just Another Text Editor',
+        short_name: 'JATE',
+        description: 'pwa text-editor',
+        background_color: "#ffffff",
+        theme_color: "#ffffff",
         start_url: "/",
         publicPath: "/",
         fingerprints: false,
@@ -39,7 +39,24 @@ module.exports = () => {
     ],
     module: {
       rules: [
-        
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.m?js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-env"],
+              plugins: [
+                "@babel/plugin-proposal-object-rest-spread",
+                "@babel/transform-runtime",
+              ],
+            },
+          },
+        }
       ],
     },
   };
